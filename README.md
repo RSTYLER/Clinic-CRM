@@ -1,3 +1,4 @@
+
 # Clinic Management System (WinForms, C#)
 
 ## Описание проекта
@@ -34,7 +35,7 @@
 ## Структура базы данных
 
 База данных включает следующие основные таблицы:
-
+<img width="1387" height="660" alt="Canlisu" src="https://github.com/user-attachments/assets/9b005218-0f34-4cc2-8652-56effda3cb31" />
 * Patients
 * Doctors
 * Departments
