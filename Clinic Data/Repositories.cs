@@ -49,6 +49,35 @@ public class SqlRepositories
         public Task<Doctor?> GetByIdAsync(int id) => GetByIdAsync("SELECT * FROM Doctors WHERE Id = @Id", id);
         public Task<IEnumerable<Doctor>> GetAllAsync() => GetAllAsync("SELECT * FROM Doctors");
 
+        public async Task<IEnumerable<DoctorDisplayModel>> GetAllWithDetailsAsync()
+        {
+            var result = new List<DoctorDisplayModel>();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = @"SELECT doc.Id, doc.FullName, dep.Name as DepartmentName, doc.Phone 
+                              FROM Doctors doc 
+                              LEFT JOIN Departments dep ON doc.DepartmentId = dep.Id";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            result.Add(new DoctorDisplayModel
+                            {
+                                Id = (int)reader["Id"],
+                                FullName = reader["FullName"].ToString() ?? string.Empty,
+                                DepartmentName = reader["DepartmentName"].ToString() ?? string.Empty,
+                                Phone = reader["Phone"].ToString() ?? string.Empty
+                            });
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
         public Task AddAsync(Doctor entity) => ExecuteNonQueryAsync(
             "INSERT INTO Doctors (FullName, DepartmentId, Phone) VALUES (@FullName, @DepartmentId, @Phone)",
             new SqlParameter("@FullName", entity.FullName),
@@ -113,6 +142,38 @@ public class SqlRepositories
 
         public Task<Patient?> GetByIdAsync(int id) => GetByIdAsync("SELECT * FROM Patients WHERE Id = @Id", id);
         public Task<IEnumerable<Patient>> GetAllAsync() => GetAllAsync("SELECT * FROM Patients");
+
+        public async Task<IEnumerable<PatientDisplayModel>> GetAllWithDetailsAsync()
+        {
+            var result = new List<PatientDisplayModel>();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                await connection.OpenAsync();
+                var query = @"SELECT p.Id, p.FullName, dis.Name as DiseaseName, doc.FullName as DoctorName, p.AdmissionDate, p.DischargeDate 
+                              FROM Patients p 
+                              LEFT JOIN Diseases dis ON p.DiseaseId = dis.Id 
+                              LEFT JOIN Doctors doc ON p.DoctorId = doc.Id";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            result.Add(new PatientDisplayModel
+                            {
+                                Id = (int)reader["Id"],
+                                FullName = reader["FullName"].ToString() ?? string.Empty,
+                                DiseaseName = reader["DiseaseName"].ToString() ?? string.Empty,
+                                DoctorName = reader["DoctorName"].ToString() ?? string.Empty,
+                                AdmissionDate = (DateTime)reader["AdmissionDate"],
+                                DischargeDate = reader["DischargeDate"] as DateTime?
+                            });
+                        }
+                    }
+                }
+            }
+            return result;
+        }
 
         public Task AddAsync(Patient entity) => ExecuteNonQueryAsync(
             "INSERT INTO Patients (FullName, DiseaseId, DoctorId, AdmissionDate, DischargeDate) VALUES (@FullName, @DiseaseId, @DoctorId, @AdmissionDate, @DischargeDate)",

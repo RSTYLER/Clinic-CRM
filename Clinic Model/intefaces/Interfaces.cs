@@ -10,9 +10,15 @@ public interface IRepository<T> where T : class
 }
 
 public interface IDepartmentRepository : IRepository<Department> { }
-public interface IDoctorRepository : IRepository<Doctor> { }
+public interface IDoctorRepository : IRepository<Doctor> 
+{
+    Task<IEnumerable<DoctorDisplayModel>> GetAllWithDetailsAsync();
+}
 public interface IDiseaseRepository : IRepository<Disease> { }
-public interface IPatientRepository : IRepository<Patient> { }
+public interface IPatientRepository : IRepository<Patient> 
+{
+    Task<IEnumerable<PatientDisplayModel>> GetAllWithDetailsAsync();
+}
 public interface ITreatmentRepository : IRepository<Treatment> { }
 
 public interface IClinicDataService
