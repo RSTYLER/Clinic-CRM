@@ -17,7 +17,7 @@ public interface IDoctorRepository : IRepository<Doctor>
 public interface IDiseaseRepository : IRepository<Disease> { }
 public interface IPatientRepository : IRepository<Patient> 
 {
-    Task<IEnumerable<PatientDisplayModel>> GetAllWithDetailsAsync();
+    Task<IEnumerable<PatientDisplayModel>> GetAllWithDetailsAsync(int? count = null);
 }
 public interface ITreatmentRepository : IRepository<Treatment> { }
 

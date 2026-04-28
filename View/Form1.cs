@@ -12,27 +12,23 @@ public partial class Form1 : Form
     {
         InitializeComponent();
         _dataService = new ClinicDataService(ConnectionString);
-        this.Load += Form1_Load;
     }
 
-    private async void Form1_Load(object? sender, EventArgs e)
+    private async void btnShowPatients_Click(object? sender, EventArgs e)
     {
         try
         {
-            await LoadData();
+            btnShowPatients.Enabled = false;
+            var patients = await _dataService.Patients.GetAllWithDetailsAsync(30);
+            dgvPatients.DataSource = patients.ToList();
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Ошибка загрузки данных: {ex.Message}");
+            MessageBox.Show($"Ошибка при получении данных: {ex.Message}");
         }
-    }
-
-    private async Task LoadData()
-    {
-        // Пример получения данных для View
-        var patients = await _dataService.Patients.GetAllWithDetailsAsync();
-        
-        // Здесь можно привязать к DataGridView, если бы он был на форме:
-        // dataGridView1.DataSource = patients.ToList();
+        finally
+        {
+            btnShowPatients.Enabled = true;
+        }
     }
 }

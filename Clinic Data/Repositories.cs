@@ -143,13 +143,14 @@ public class SqlRepositories
         public Task<Patient?> GetByIdAsync(int id) => GetByIdAsync("SELECT * FROM Patients WHERE Id = @Id", id);
         public Task<IEnumerable<Patient>> GetAllAsync() => GetAllAsync("SELECT * FROM Patients");
 
-        public async Task<IEnumerable<PatientDisplayModel>> GetAllWithDetailsAsync()
+        public async Task<IEnumerable<PatientDisplayModel>> GetAllWithDetailsAsync(int? count = null)
         {
             var result = new List<PatientDisplayModel>();
             using (var connection = new SqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                var query = @"SELECT p.Id, p.FullName, dis.Name as DiseaseName, doc.FullName as DoctorName, p.AdmissionDate, p.DischargeDate 
+                var topClause = count.HasValue ? $"TOP ({count.Value})" : "";
+                var query = $@"SELECT {topClause} p.Id, p.FullName, dis.Name as DiseaseName, doc.FullName as DoctorName, p.AdmissionDate, p.DischargeDate 
                               FROM Patients p 
                               LEFT JOIN Diseases dis ON p.DiseaseId = dis.Id 
                               LEFT JOIN Doctors doc ON p.DoctorId = doc.Id";
