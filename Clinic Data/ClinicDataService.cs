@@ -9,6 +9,7 @@ public class ClinicDataService : IClinicDataService
     public IDiseaseRepository Diseases { get; }
     public IPatientRepository Patients { get; }
     public ITreatmentRepository Treatments { get; }
+    public IPaymentRepository Payments { get; }
 
     public ClinicDataService(string connectionString)
     {
@@ -17,5 +18,6 @@ public class ClinicDataService : IClinicDataService
         Diseases = new SqlRepositories.DiseaseRepository(connectionString);
         Patients = new SqlRepositories.PatientRepository(connectionString);
         Treatments = new SqlRepositories.TreatmentRepository(connectionString);
+        Payments = new SqlRepositories.PaymentRepository(connectionString);
     }
 }

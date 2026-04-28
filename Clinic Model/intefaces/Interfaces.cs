@@ -19,7 +19,11 @@ public interface IPatientRepository : IRepository<Patient>
 {
     Task<IEnumerable<PatientDisplayModel>> GetAllWithDetailsAsync(int? count = null);
 }
-public interface ITreatmentRepository : IRepository<Treatment> { }
+public interface ITreatmentRepository : IRepository<Treatment> 
+{
+    Task<IEnumerable<TreatmentDisplayModel>> GetAllWithDetailsAsync(int? count = null);
+}
+public interface IPaymentRepository : IRepository<Payment> { }
 
 public interface IClinicDataService
 {
@@ -28,4 +32,5 @@ public interface IClinicDataService
     IDiseaseRepository Diseases { get; }
     IPatientRepository Patients { get; }
     ITreatmentRepository Treatments { get; }
+    IPaymentRepository Payments { get; }
 }

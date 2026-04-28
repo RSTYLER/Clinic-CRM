@@ -6,7 +6,7 @@ namespace Clinic_CRM;
 public partial class Form1 : Form
 {
     private readonly IClinicDataService _dataService;
-    private const string ConnectionString = @"Data Source=JADESTAR\SQLEXPRESS;Initial Catalog=ClinicDB;Integrated Security=True;Encrypt=False;TrustServerCertificate=False";
+    private const string ConnectionString = @"Data Source=JADESTAR\SQLEXPRESS;Initial Catalog=Clinic_DB;Integrated Security=True;Encrypt=False;TrustServerCertificate=False";
 
     public Form1()
     {
