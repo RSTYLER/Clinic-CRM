@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{85E1B123-95F9-45D7-9C11-B1924B0E31AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic Model", "Clinic Model\Clinic Model.csproj", "{EEEE77EB-D108-4927-95B7-DE50D7C0AA49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Data", "Clinic Data\Clinic.Data.csproj", "{F398B008-5603-4692-B1CF-61C1E09B21FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +21,9 @@ Global
 		{EEEE77EB-D108-4927-95B7-DE50D7C0AA49}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEEE77EB-D108-4927-95B7-DE50D7C0AA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEEE77EB-D108-4927-95B7-DE50D7C0AA49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F398B008-5603-4692-B1CF-61C1E09B21FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F398B008-5603-4692-B1CF-61C1E09B21FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F398B008-5603-4692-B1CF-61C1E09B21FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F398B008-5603-4692-B1CF-61C1E09B21FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
